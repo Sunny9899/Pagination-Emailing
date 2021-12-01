@@ -13,6 +13,6 @@ const message = {
   };
 
 //Mail
-transporter.sendMail(message);    //By doing this, everytime user is created, mail will be sent to user 
+transporter.sendMail(message);    //By doing this, everytime product is created, mail will be sent to user 
 
 }

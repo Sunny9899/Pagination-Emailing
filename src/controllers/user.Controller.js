@@ -6,21 +6,20 @@ const router = express.Router();
 
 const sendMail = require("../utils/sendmail");//3MAIL
 
-let e=["a1@admn.com","a2@admn.com","a3@admn.com","a4@admn.com"]
-
 router.post("/", async(req,res)=>{
     try{
         const user=await User.create(req.body);
-        
+      
+       const e=["a1@admn.com","a2@admn.com","a3@admn.com","a4@admn.com","a5@admn.com"]//ADMIN MAIL
+  
+       const eToString= e.join(",");//ADMIN MAIL
         sendMail(`${req.body.email}`,`Welcome to ABC system ${req.body.first_name +" "+ req.body.last_name}`,`Hi ${req.body.first_name}, Please confirm your email address`)//4MAIL
+ 
+        // TO SEND MAILS TO ADMINS
+        sendMail(eToString,`${req.body.first_name +" "+ req.body.last_name} has registered with us`,`Please Welcome ${req.body.first_name +" "+ req.body.last_name}`,"");
 
-    // TO SEND MAILS TO ADMINS
-        //Loop Not Working here, thats why individually
-        sendMail(`${e[0]}`,`${req.body.first_name +" "+ req.body.last_name} has registered with us`,`Please Welcome ${req.body.first_name +" "+ req.body.last_name}`,"");
-        sendMail(`${e[1]}`,`${req.body.first_name +" "+ req.body.last_name} has registered with us`,`Please Welcome ${req.body.first_name +" "+ req.body.last_name}`,"");
-        sendMail(`${e[2]}`,`${req.body.first_name +" "+ req.body.last_name} has registered with us`,`Please Welcome ${req.body.first_name +" "+ req.body.last_name}`,"");
-        sendMail(`${e[3]}`,`${req.body.first_name +" "+ req.body.last_name} has registered with us`,`Please Welcome ${req.body.first_name +" "+ req.body.last_name}`,"");
-                
+
+     
         return res.status(201).json({user});
     }
     catch(e){
